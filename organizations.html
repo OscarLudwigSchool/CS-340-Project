@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizations - Event Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="locations.html">Locations</a></li>
+            <li><a href="organizations.html">Organizations</a></li>
+            <li><a href="participants.html">Participants</a></li>
+        </ul>
+    </nav>
+    <h1>Organizations</h1>
+    <div>
+        <button id="mainEditBtn" onclick="startEdit()">Edit</button>
+        <div class="edit-buttons" id="editButtons">
+            <button onclick="addNew()">Add Organization</button>
+            <button onclick="submitChanges()">Submit</button>
+            <button onclick="cancelEdit()">Cancel</button>
+        </div>
+    </div>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th class="delete-column"></th>
+                <th>Organization ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-id="1">
+                <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                <td>1</td>
+                <td>CAPS</td>
+            </tr>
+            <tr data-id="2">
+                <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                <td>2</td>
+                <td>International Student Association</td>
+            </tr>
+            <tr data-id="3">
+                <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                <td>3</td>
+                <td>Department of Recreational Sports</td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="crud.js"></script>
+    <script>
+        let nextId = 4;
+
+        function makeEditable(row) {
+            const cells = row.cells;
+            cells[2].innerHTML = `<input type="text" value="${cells[2].textContent || ''}">`;
+        }
+
+        function addNew() {
+            addNewRow(nextId, makeEditable);
+            nextId++;
+        }
+    </script>
+    <footer>
+        <p>Marina Witherell and Oscar Ludwig</p>
+        <p>CS 340 Project Group 108</p>
+    </footer>
+</body>
+</html>

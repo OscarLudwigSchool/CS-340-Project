@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Event Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="locations.html">Locations</a></li>
+            <li><a href="organizations.html">Organizations</a></li>
+            <li><a href="participants.html">Participants</a></li>
+        </ul>
+    </nav>
+    <h1>Events</h1>
+    <div>
+        <button id="mainEditBtn" onclick="startEdit()">Edit</button>
+        <div class="edit-buttons" id="editButtons">
+            <button onclick="addNew()">Add Event</button>
+            <button onclick="submitChanges()">Submit</button>
+            <button onclick="cancelEdit()">Cancel</button>
+        </div>
+    </div>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th class="delete-column"></th>
+                <th>Event ID</th>
+                <th>Name</th>
+                <th>Date/Time</th>
+                <th>Participants</th>
+                <th>Organization</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-id="1">
+                <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                <td>1</td>
+                <td>Paws to De-Stress</td>
+                <td>2025-03-04 13:45:00</td>
+                <td>11</td>
+                <td>CAPS</td>
+                <td>Memorial Union</td>
+                <td>Hang out with therapy dogs.</td>
+            </tr>
+            <tr>
+                <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                <td>2</td>
+                <td>Creating Calm</td>
+                <td>2025-02-05 12:30:00</td>
+                <td>3</td>
+                <td>CAPS</td>
+                <td>Library</td>
+                <td>Create art to calm the nerves.</td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="crud.js"></script>
+    <script>
+        let nextId = 3;
+
+        function makeEditable(row) {
+            const cells = row.cells;
+            const currentOrg = cells[5].textContent;
+            const currentLoc = cells[6].textContent;
+            
+            cells[2].innerHTML = `<input type="text" value="${cells[2].textContent || ''}">`;
+            cells[3].innerHTML = `<input type="datetime-local" value="${cells[3].textContent ? cells[3].textContent.replace(' ', 'T') : ''}">`;
+            cells[4].innerHTML = `<input type="number" value="${cells[4].textContent || '0'}">`;
+            cells[5].innerHTML = `<select>
+                <option ${currentOrg === 'CAPS' ? 'selected' : ''}>CAPS</option>
+                <option ${currentOrg === 'International Student Association' ? 'selected' : ''}>International Student Association</option>
+                <option ${currentOrg === 'Department of Recreational Sports' ? 'selected' : ''}>Department of Recreational Sports</option>
+            </select>`;
+            cells[6].innerHTML = `<select>
+                <option ${currentLoc === 'Library' ? 'selected' : ''}>Library</option>
+                <option ${currentLoc === 'Memorial Union' ? 'selected' : ''}>Memorial Union</option>
+                <option ${currentLoc === 'Cultural Center' ? 'selected' : ''}>Cultural Center</option>
+                <option ${currentLoc === 'Dixon Rec Center' ? 'selected' : ''}>Dixon Rec Center</option>
+            </select>`;
+            cells[7].innerHTML = `<input type="text" value="${cells[7].textContent || ''}">`;
+        }
+
+        function addNew() {
+            addNewRow(nextId, makeEditable);
+            nextId++;
+        }
+    </script>
+    <footer>
+        <p>Marina Witherell and Oscar Ludwig</p>
+        <p>CS 340 Project Group 108</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participants - Event Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="locations.html">Locations</a></li>
+            <li><a href="organizations.html">Organizations</a></li>
+            <li><a href="participants.html">Participants</a></li>
+        </ul>
+    </nav>
+    <h1>Participants</h1>
+    <div>
+        <button id="mainEditBtn" onclick="startEdit()">Edit</button>
+        <div class="edit-buttons" id="editButtons">
+            <button onclick="addNew()">Add Participant</button>
+            <button onclick="submitChanges()">Submit</button>
+            <button onclick="cancelEdit()">Cancel</button>
+        </div>
+    </div>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th class="delete-column"></th>
+                <th>Participant ID</th>
+                <th>Name</th>
+                <th>Number of Events</th>
+                <th>Organization</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-id="1">
+                <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                <td>1</td>
+                <td>Victoria Dutton</td>
+                <td>4</td>
+                <td>None</td>
+            </tr>
+            <tr data-id="2">
+                <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                <td>2</td>
+                <td>Elizabeth Neeser</td>
+                <td>8</td>
+                <td>Department of Recreational Sports</td>
+            </tr>
+            <tr data-id="3">
+                <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                <td>3</td>
+                <td>Sofia Pfisterer</td>
+                <td>5</td>
+                <td>CAPS</td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="crud.js"></script>
+    <script>
+        let nextId = 4;
+
+        function makeEditable(row) {
+            const cells = row.cells;
+            const currentOrg = cells[4].textContent;
+            
+            cells[2].innerHTML = `<input type="text" value="${cells[2].textContent || ''}">`;
+            cells[3].innerHTML = `<input type="number" value="${cells[3].textContent || '0'}">`;
+            cells[4].innerHTML = `<select>
+                <option ${currentOrg === 'None' ? 'selected' : ''}>None</option>
+                <option ${currentOrg === 'CAPS' ? 'selected' : ''}>CAPS</option>
+                <option ${currentOrg === 'International Student Association' ? 'selected' : ''}>International Student Association</option>
+                <option ${currentOrg === 'Department of Recreational Sports' ? 'selected' : ''}>Department of Recreational Sports</option>
+            </select>`;
+        }
+
+        function addNew() {
+            addNewRow(nextId, makeEditable);
+            nextId++;
+        }
+    </script>
+    <footer>
+        <p>Marina Witherell and Oscar Ludwig</p>
+        <p>CS 340 Project Group 108</p>
+    </footer>
+</body>
+</html>
