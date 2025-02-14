@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organizations - Event Management System</title>
+    <title>Events - Event Management System</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,11 +17,11 @@
             <li><a href="eventparticipants.html">EventParticipants</a></li>
         </ul>
     </nav>
-    <h1>Organizations</h1>
+    <h1>Events</h1>
     <div>
         <button id="mainEditBtn" onclick="startEdit()">Edit</button>
         <div class="edit-buttons" id="editButtons">
-            <button onclick="addNew()">Add Organization</button>
+            <button onclick="addNew()">Add Event</button>
             <button onclick="submitChanges()">Submit</button>
             <button onclick="cancelEdit()">Cancel</button>
         </div>
@@ -30,35 +30,53 @@
         <thead>
             <tr>
                 <th class="delete-column"></th>
-                <th>Organization ID</th>
-                <th>Name</th>
+                <th>Event</th>
+                <th>Participant</th>
             </tr>
         </thead>
         <tbody>
-            <tr data-id="1">
+            <tr>
                 <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
-                <td>1</td>
-                <td>CAPS</td>
+                <td>Paws to De-Stress</td>
+                <td>Victoria Dutton</td>
             </tr>
-            <tr data-id="2">
+            <tr>
                 <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
-                <td>2</td>
-                <td>International Student Association</td>
+                <td>Creating Calm</td>
+                <td>Sofia Pfisterer</td>
             </tr>
-            <tr data-id="3">
+            <tr>
                 <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
-                <td>3</td>
-                <td>Department of Recreational Sports</td>
+                <td>Kayak Roll Sessions</td>
+                <td>Victoria Dutton</td>
+            </tr>
+            <tr>
+                <td class="delete-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                <td>Kayak Roll Sessions</td>
+                <td>Elizabeth Neeser</td>
             </tr>
         </tbody>
     </table>
     <script src="crud.js"></script>
     <script>
-        let nextId = 4;
+        let nextId = 3;
 
         function makeEditable(row) {
             const cells = row.cells;
-            cells[2].innerHTML = `<input type="text" value="${cells[2].textContent || ''}">`;
+            const currentEvent = cells[1].textContent;
+            const currentPtpnt = cells[2].textContent;
+            
+            cells[1].innerHTML = `<select>
+                <option ${currentEvent === 'Paws to De-Stress' ? 'selected' : ''}>Paws to De-Stress</option>
+                <option ${currentEvent === 'Creating Calm' ? 'selected' : ''}>Creating Calm</option>
+                <option ${currentEvent === 'Anime Night' ? 'selected' : ''}>Anime Night</option>
+                <option ${currentEvent === 'Kayak Roll Sessions' ? 'selected' : ''}>Kayak Roll Sessions</option>
+            </select>`;
+            cells[2].innerHTML = `<select>
+                <option ${currentPtpnt === 'Victoria Dutton' ? 'selected' : ''}>Victoria Dutton</option>
+                <option ${currentPtpnt === 'Elizabeth Neeser' ? 'selected' : ''}>Elizabeth Neeser</option>
+                <option ${currentPtpnt === 'Sofia Pfisterer' ? 'selected' : ''}>Sofia Pfisterer</option>
+            </select>`;
         }
 
         function addNew() {
